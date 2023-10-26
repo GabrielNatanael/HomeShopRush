@@ -8,6 +8,7 @@ public class Waypoints : MonoBehaviour
 
     private void Awake()
     {
+        //Counts amount of waypoints inside of waypoint object.
         wayPointsPath = new Transform[transform.childCount];
 
         for(int i = 0; i < wayPointsPath.Length; i++)
