@@ -6,7 +6,8 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
 
-    [SerializeField] GameObject standardTurretPrefab;
+    public GameObject standardTurretPrefab;
+    public GameObject rocketTurretPrefab;
 
     private GameObject turretToBuild;
 
@@ -18,13 +19,14 @@ public class BuildManager : MonoBehaviour
         }
         Instance = this;
     }
-    private void Start()
-    {
-        turretToBuild = standardTurretPrefab;
-    }
 
     public GameObject GetTurretToBuild () 
     { 
         return turretToBuild;    
     }
+    public void SetTurretToBuild(GameObject turret)
+    {
+        turretToBuild = turret;
+    }
+
 }

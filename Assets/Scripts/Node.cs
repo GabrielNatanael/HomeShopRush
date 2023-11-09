@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour
 {
@@ -11,19 +12,28 @@ public class Node : MonoBehaviour
     private Renderer rend;
     private Color startColor;
 
+    BuildManager buildManager;
+
     private void Start()
     {
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
+        buildManager = BuildManager.Instance;
     }
     private void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        { return; }
+
+        if (buildManager.GetTurretToBuild()==null)
+        { return; }
+
         if (turret != null)
         {
             Debug.Log("Can't Build Here!-todo place on screen");
             return;
         }
-        GameObject turretToBuild = BuildManager.Instance.GetTurretToBuild();
+        GameObject turretToBuild = buildManager.GetTurretToBuild();
         turret = (GameObject) Instantiate(turretToBuild, transform.position + positionOffset, transform.rotation);
 
     }
@@ -31,6 +41,12 @@ public class Node : MonoBehaviour
     //When mouse enters the color changes and when it exites the color goes back to its original color.
     private void OnMouseEnter()
     {
+        if(EventSystem.current.IsPointerOverGameObject()) 
+        { return; }
+
+        if (buildManager.GetTurretToBuild() == null)
+        { return; }
+
         rend.material.color = hoverColor;
     }
 
