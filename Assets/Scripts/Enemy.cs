@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
         //moves the enemy towards waypoints
         Vector3 dir = target.position - transform.position;
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        transform.LookAt(target);
 
         //Changes waypoint if enemy slows down to 0.4.
         if (Vector3.Distance(transform.position, target.position) <= 0.4f)
